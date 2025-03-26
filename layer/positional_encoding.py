@@ -21,5 +21,6 @@ class PositionalEncoding(nn.Module):
                 else: 
                     pe[batch][position] = math.cos(position / (10000**(2*(position+1)/embedding_dim)))
         
-        return pe
+        return pe + embedding
+    
             
