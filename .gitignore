@@ -3,7 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 attention_fake.py
-ppreparation.ipynb
+preparation.ipynb
 # C extensions
 *.so
 
