@@ -15,12 +15,10 @@ class PositionalEncoding(nn.Module):
         pe = torch.zeros(batch_size, num_seq, embedding_dim)
 
         for batch in batch_size:
-            for position in num_seq: 
-                if ((position & 1) == 0):
-                    pe[batch][position] = math.sin(position / (10000**(2*position/embedding)))
-                else: 
-                    pe[batch][position] = math.cos(position / (10000**(2*(position+1)/embedding_dim)))
-        
+            for position in range(0, num_seq, 2): 
+                pe[batch][position] = math.sin(position / (10000**(2*position/embedding)))
+                pe[batch][position] = math.cos(position / (10000**(2*(position+1)/embedding_dim)))
+    
         return pe + embedding
     
             
