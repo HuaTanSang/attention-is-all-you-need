@@ -85,12 +85,15 @@ class MultiHeadAttention(nn.Module):
         K = self.W_K(K)  # (batch_size, seq_len, d_model)
         V = self.W_V(V)  # (batch_size, seq_len, d_model)
         
-        
+        print(Q.size())
         # Reshape và chuyển vị sao cho các tensor có kích thước: (batch_size, num_heads, seq_len, d_k)
         Q = Q.view(batch_size, -1, self.num_heads, self.d_k).transpose(1, 2)
         K = K.view(batch_size, -1, self.num_heads, self.d_k).transpose(1, 2)
         V = V.view(batch_size, -1, self.num_heads, self.d_k).transpose(1, 2)
         
+        print(Q.size())
+        raise 
+
         # Nếu có mask, điều chỉnh kích thước của mask cho phù hợp
         if mask is not None:
             mask = mask.unsqueeze(1)  # (batch_size, 1, seq_len, seq_len)

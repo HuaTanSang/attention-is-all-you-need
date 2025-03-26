@@ -16,13 +16,29 @@ class MultiheadAttention(nn.Module):
         self.last_linear = nn.Linear(self.d_model, self.d_model)
         self.d_k = d_model // num_heads
 
-    def forward(self, Q: torch.Tensor, V: torch.Tensor, K: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:
-        
+        assert (self.d_k * num_heads == d_model), "d_model must be divisible by num_heads"
+
+
+    def forward(self, Q: torch.Tensor, K: torch.Tensor, V: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:
+        """ 
+        Q, K, V: [batch_size, num_heads, num_seq, d_model]
+        """
+
         Q = self.w_q(Q) 
         K = self.w_k(K) 
         V = self.w_v(V) 
 
-    
+        Q, V, K = self.split_tensor(Q, V, K)
 
-    def split_tensor(self, )
+
+
+        return
+
+    def split_tensor(self, tensor: torch.Tensor):
+        """
+        Q, V, K need to be divided by num_heads 
+        """
+
+
+        return None 
 
