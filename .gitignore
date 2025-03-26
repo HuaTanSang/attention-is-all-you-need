@@ -6,7 +6,7 @@ attention_fake.py
 preparation.ipynb
 # C extensions
 *.so
-
+token.txt
 # Distribution / packaging
 .Python
 build/
