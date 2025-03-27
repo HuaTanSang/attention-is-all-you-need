@@ -27,7 +27,7 @@ class EncoderBlock(nn.Module):
         X = self.attention(Q=src_input, K=src_input, V=src_input, mask=src_mask)
         X = self.norm1(src_input + X)
 
-        temp = X 
+        temp = X.clone().detach() 
         X = self.fc_feedforward(X)
         X = self.norm2(temp + X) 
 

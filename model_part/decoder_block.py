@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn 
 
 from layer.feed_forward import FC_FeedForwardnetwork
@@ -28,12 +29,12 @@ class DecoderBlock(nn.Module):
         X = self.attention1(Q=src_input, K=src_input, V=src_input, mask=src_mask)
         X = self.norm1(X + src_input)
 
-        temp = X 
+        temp = X.clone().detach()
 
         X = self.attention2(Q=enc_src, K=enc_src, V=X)
         X = self.norm2(X + temp)
 
-        temp = X 
+        temp = X.clone().detach()
         X = self.fc_feedforward(X)
         X = self.norm3(X + temp)
 
