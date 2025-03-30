@@ -3,21 +3,19 @@ import torch
 import torch.nn as nn 
 
 
-class PositionalEncoding(nn.Module): 
-    def __init__(self):
-        super(PositionalEncoding, self).__init__() 
-
-
-    def forward(self, embedding):
-        batch_size, num_seq, embedding_dim = embedding.size() 
-
-        pe = torch.zeros(batch_size, num_seq, embedding_dim)
-
-        for batch in batch_size:
-            for position in range(0, num_seq, 2): 
-                pe[batch][position] = math.sin(position / (10000**(2*position/embedding)))
-                pe[batch][position+1] = math.cos((position+1) / (10000**(2*(position+1)/embedding_dim)))
+class PositionalEncoding(nn.Module):
+    def __init__(self, d_model, max_seq_length):
+        super(PositionalEncoding, self).__init__()
+        
+        pe = torch.zeros(max_seq_length, d_model)
+        position = torch.arange(0, max_seq_length, dtype=torch.float).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, d_model, 2).float() * -(math.log(10000.0) / d_model))
+        
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        
+        self.register_buffer('pe', pe.unsqueeze(0))
+        
+    def forward(self, x):
+        return x + self.pe[:, :x.size(1)]
     
-        return pe + embedding
-    
-            
