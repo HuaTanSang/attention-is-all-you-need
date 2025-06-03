@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn 
 
 from model_part.encoder_block import EncoderBlock
-from layer.positional_encoding import PositionalEncoding
+from embedding.positional_encoding import PositionalEncoding
 
 
 class Encoder(nn.Module):
